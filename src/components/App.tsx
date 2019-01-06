@@ -4,7 +4,7 @@ import {Stores} from "../stores";
 
 
 type Props = {
-  startNetwork?: (label: string) => void,
+  startNetwork?:                  (label: string) => void,
   endNetwork?: (label: string) => void,
   networkCount?: number
 }
