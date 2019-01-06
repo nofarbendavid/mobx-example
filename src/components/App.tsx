@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { Stores } from '../stores';
+import styled from '@emotion/styled';
+
+const LargeText = styled.p`
+  color: ${props => props.color};
+  font-size: 24px;
+`;
 
 type Props = {
   startNetwork?: (label: string) => void;
@@ -33,9 +39,9 @@ class App extends Component<Props> {
     return (
       <div className="App">
         <header className="App-header">
-          <p>
+          <LargeText color="blue">
             Edit <code>src/App.tsx</code> and save to reload.
-          </p>
+          </LargeText>
           NetworkCount: {this.props.networkCount}
           <button onClick={this.fireRequest}>Fire</button>
           <button onClick={this.endRequest}>End</button>
