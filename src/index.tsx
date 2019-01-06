@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
@@ -6,9 +6,11 @@ import { Provider } from 'mobx-react';
 import stores from './stores';
 
 ReactDOM.render(
-  <Provider {...stores}>
-    <App />
-  </Provider>,
+  <Suspense fallback={<div>Loading...</div>}>
+    <Provider {...stores}>
+      <App />
+    </Provider>
+  </Suspense>,
   document.getElementById('root')
 );
 

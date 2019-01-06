@@ -1,59 +1,16 @@
-import React, { Component } from 'react';
-import { inject, observer } from 'mobx-react';
-import { Stores } from '../stores';
-import styled from '@emotion/styled';
+import React, { Component, lazy } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-const LargeText = styled.p`
-  color: ${props => props.color};
-  font-size: 24px;
-`;
+const Transactions = lazy(() => import('../pages/Transactions'));
 
-type Props = {
-  startNetwork?: (label: string) => void;
-  endNetwork?: (label: string) => void;
-  networkCount?: number;
-};
-
-@inject(
-  ({ networkStore }: Stores): Props => ({
-    networkCount: networkStore.getByLabel('general'),
-    startNetwork: networkStore.startNetwork,
-    endNetwork: networkStore.endNetwork
-  })
-)
-@observer
-class App extends Component<Props> {
-  fireRequest = () => {
-    if (this.props.startNetwork) {
-      this.props.startNetwork('general');
-    }
-  };
-
-  endRequest = () => {
-    if (this.props.endNetwork) {
-      this.props.endNetwork('general');
-    }
-  };
-
+class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <LargeText color="blue">
-            Edit <code>src/App.tsx</code> and save to reload.
-          </LargeText>
-          NetworkCount: {this.props.networkCount}
-          <button onClick={this.fireRequest}>Fire</button>
-          <button onClick={this.endRequest}>End</button>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer">
-            Learn React
-          </a>
-        </header>
-      </div>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Transactions} />
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
