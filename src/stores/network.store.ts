@@ -6,7 +6,7 @@ export interface INetworkStore {
   requests: Map<string, number>;
 }
 
-export class NetworkStore {
+export class NetworkStore implements INetworkStore {
   @observable requests: Map<string, number> = new Map();
 
   @action.bound startNetwork(label: string) {
