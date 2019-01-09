@@ -1,12 +1,6 @@
 import { action, observable } from 'mobx';
 
-export interface INetworkStore {
-  startNetwork: (label: string) => void;
-  endNetwork: (label: string) => void;
-  requests: Map<string, number>;
-}
-
-export class NetworkStore implements INetworkStore {
+export class NetworkStore {
   @observable requests: Map<string, number> = new Map();
 
   @action.bound startNetwork(label: string) {

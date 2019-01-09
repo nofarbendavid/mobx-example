@@ -1,13 +1,17 @@
 import { NetworkStore } from './network.store';
+import { TransactionsStore } from './transactions.store';
 
 export const networkStore = new NetworkStore();
+export const transactionsStore = new TransactionsStore();
 
 export interface Stores {
-  networkStore: NetworkStore
+  networkStore: NetworkStore,
+  transactionsStore: TransactionsStore
 }
 
 const stores = {
-  networkStore
+  networkStore,
+  transactionsStore
 };
 
 export default stores;

@@ -1,4 +1,4 @@
-import React, { Component, lazy, FunctionComponent, Suspense } from 'react';
+import React, { Component, Suspense } from 'react';
 import { inject, observer } from 'mobx-react';
 import { Stores } from '../stores';
 import styled from '@emotion/styled';
@@ -8,21 +8,21 @@ const LargeText = styled.p`
   font-size: 24px;
 `;
 
-type Props = {
+interface IAppProps {
   startNetwork?: (label: string) => void;
   endNetwork?: (label: string) => void;
   networkCount?: number;
-};
+}
 
 @inject(
-  ({ networkStore }: Stores): Props => ({
+  ({ networkStore }: Stores): IAppProps => ({
     networkCount: networkStore.getByLabel('general'),
     startNetwork: networkStore.startNetwork,
     endNetwork: networkStore.endNetwork
   })
 )
 @observer
-class App extends Component<Props> {
+class App extends Component<IAppProps> {
   fireRequest = () => {
     if (this.props.startNetwork) {
       this.props.startNetwork('general');

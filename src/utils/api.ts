@@ -2,19 +2,24 @@ import { networkStore } from '../stores';
 import axios from 'axios';
 import * as logger from '../utils/logger';
 
-interface RequestHeaders {
+interface IRequestHeaders {
   [key: string]: string
 }
 
-interface APIParams {
+interface IAPIParams {
   method?: 'get' | 'post' | 'put' | 'delete';
   url: string
   data?: any,
   networkLabel?: string
-  headers?: RequestHeaders
+  headers?: IRequestHeaders
 }
 
-export async function apiRequest<T>({ method = 'get', url, networkLabel = 'general', data }: APIParams): Promise<T> {
+export async function apiRequest<T>({
+  method = 'get',
+  url,
+  networkLabel = 'general',
+  data
+}: IAPIParams): Promise<Response> {
   networkStore.startNetwork(networkLabel);
 
   try {
@@ -24,7 +29,7 @@ export async function apiRequest<T>({ method = 'get', url, networkLabel = 'gener
       data
     });
 
-    return response.data as T;
+    return response.data;
   } catch(err) {
     logger.error(err);
 
