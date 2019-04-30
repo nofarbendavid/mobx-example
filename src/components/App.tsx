@@ -1,17 +1,35 @@
-import React, { Component, lazy } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Transactions from '../pages/Transactions';
+import React, { lazy, Suspense } from 'react';
+import { ThemeProvider } from 'emotion-theming';
+import { BrowserRouter } from 'react-router-dom';
+import { Route } from 'react-router';
+import { Provider } from 'mobx-react';
+import stores from 'stores';
 
-// const Transactions = lazy(() => import('../pages/Transactions')); TODO: check error
+import theme from 'constants/themes.constants';
 
-class App extends Component {
+import Localization from 'components/localization'; // TODO: remove if no localization
+import Layout from 'components/layout/layout';
+import Sample from 'sample/sample'; // TODO: replace this with actual component
+
+const LazyRoute = lazy(() => import('sample/lazy'));
+
+class App extends React.Component<{}> {
   render() {
     return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={Transactions} />
-        </Switch>
-      </BrowserRouter>
+      <Provider {...stores}>
+        <Localization>
+          <ThemeProvider theme={theme}>
+            <BrowserRouter>
+              <Layout>
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Route exact path="/" name="sample" component={Sample} />
+                  <Route path="/lazy" name="lazy" component={LazyRoute} />
+                </Suspense>
+              </Layout>
+            </BrowserRouter>
+          </ThemeProvider>
+        </Localization>
+      </Provider>
     );
   }
 }
