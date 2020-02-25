@@ -1,34 +1,26 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import { ThemeProvider } from 'emotion-theming';
 import { BrowserRouter } from 'react-router-dom';
-import { Route } from 'react-router';
+import { Route, Redirect } from 'react-router';
 import { Provider } from 'mobx-react';
 import stores from 'stores';
-
 import theme from 'constants/themes.constants';
-
-import Localization from 'components/localization'; // TODO: remove if no localization
-import Layout from 'components/layout/layout';
-import Sample from 'sample/sample'; // TODO: replace this with actual component
-
-const LazyRoute = lazy(() => import('sample/lazy'));
+import IssuesList from 'components/IssuesList';
 
 class App extends React.Component<{}> {
   render() {
     return (
       <Provider {...stores}>
-        <Localization>
-          <ThemeProvider theme={theme}>
-            <BrowserRouter>
-              <Layout>
-                <Suspense fallback={<div>Loading...</div>}>
-                  <Route exact path="/" name="sample" component={Sample} />
-                  <Route path="/lazy" name="lazy" component={LazyRoute} />
-                </Suspense>
-              </Layout>
-            </BrowserRouter>
-          </ThemeProvider>
-        </Localization>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <Route
+              exact
+              path="/"
+              render={() => <Redirect to="/facebook/react/issues" />}
+            />
+            <Route exact path="/facebook/react/issues" component={IssuesList} />
+          </BrowserRouter>
+        </ThemeProvider>
       </Provider>
     );
   }

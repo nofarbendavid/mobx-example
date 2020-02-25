@@ -1,21 +1,17 @@
 import { NetworkStore } from './network.store';
-import { PostsStore } from '../sample/sample.store';
-import { LocalizationStore } from './localization.store';
+import { IssuesStore }  from 'stores/issues.store';
 
 export const networkStore = new NetworkStore();
-export const localizationStore = new LocalizationStore();
-export const postsStore = new PostsStore(); // TODO: Sample only. Remove This
+export const issuesStore = new IssuesStore();
 
 export interface Stores {
   networkStore: NetworkStore,
-  localizationStore: LocalizationStore,
-  postsStore: PostsStore
+  issuesStore: IssuesStore
 }
 
 const stores = {
   networkStore,
-  localizationStore,
-  postsStore
+  issuesStore
 };
 
 export default stores;
